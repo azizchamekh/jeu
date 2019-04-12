@@ -3,7 +3,8 @@
 #include <stdio.h>
 #include <SDL/SDL_mixer.h>
 #include <SDL/SDL_ttf.h>
-
+#include "menu.h"
+#include "credits.h"
 
 void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination ) 
 {
@@ -16,6 +17,7 @@ void apply_surface( int x, int y, SDL_Surface* source, SDL_Surface* destination 
     //on blit la surface
     SDL_BlitSurface( source, NULL, destination, &offset );
 }
+
 void menu(SDL_Surface *bg,SDL_Surface *screen)
 {
     SDL_Surface *bouttons = NULL;
@@ -167,6 +169,7 @@ Mix_Music *musique;
                             if((event.motion.x >70) && (event.motion.x <170) && (event.motion.y >150) && (event.motion.y <280) )
                                     {
                                         apply_surface( 0, 0, newgame, screen );
+                                    Mix_PlayChannel( -1, effect, 0 );
                                         T[0]=1;T[1]=0;T[2]=0;T[3]=0;
                                         
                                     }
@@ -174,16 +177,19 @@ Mix_Music *musique;
                             else if((event.motion.x >200) && (event.motion.x <300) && (event.motion.y >150) && (event.motion.y <280) )
                                     {
                                         apply_surface( 0, 0, options, screen );
+                                    Mix_PlayChannel( -1, effect, 0 );
                                         T[0]=0;T[1]=1;T[2]=0;T[3]=0;
                                     }
                             else if ((event.motion.x >330) && (event.motion.x <430) && (event.motion.y >150) && (event.motion.y <280) )
                                     {
                                         apply_surface( 0, 0, quit, screen );
+                                    Mix_PlayChannel( -1, effect, 0 );
                                         T[0]=0;T[1]=0;T[2]=1;T[3]=0;
                                     }
                             else if((event.motion.x >450) && (event.motion.x <495) && (event.motion.y >350) && (event.motion.y <380) )
                                     {
                                         apply_surface( 0, 0, credit, screen );
+                                    Mix_PlayChannel( -1, effect, 0 );
                                         T[0]=0;T[1]=0;T[2]=0;T[3]=1;
                                     }
                             else 
@@ -202,9 +208,9 @@ Mix_Music *musique;
                             {
                 
                                 if(event.button.x >30 && event.button.x <80 && event.button.y >150 && event.button.y <200 ) Run=0;
-                                else if (event.button.x >396.5 && event.button.x <627.5 && event.button.y >350 && event.button.y <480) 
+                                else if (event.button.x >450 && event.button.x <495 && event.button.y >350 && event.button.y <380) 
                                 {
-
+                                credits (screen,bg);
                                 }
                                 else if (event.button.x >396.5 && event.button.x <627.5 && event.button.y >50 && event.button.y <180)
                                 {
@@ -215,12 +221,13 @@ Mix_Music *musique;
                                     apply_surface( 0, 0, bg, screen );
                                     apply_surface( 0, 0, bouttons, screen );
                                 }
-                                else if(event.button.x>396.5 && event.button.x<627.5 && event.button.y>250 && event.button.y<323)
+                                
+                                else if(event.button.x>200 && event.button.x<300 && event.button.y>150 && event.button.y<280)
                                 {
 
-                                    apply_surface( 0, 0, bg, screen );
-                                    apply_surface( 0, 0, bouttons, screen );
+
                                 }
+				
 				else if(event.button.x>330 && event.button.x<430 && event.button.y>150 && event.button.y<280)
                                     {
                                         Run=0;
@@ -250,10 +257,10 @@ Mix_Music *musique;
 int main(int argc, const char* argv[]) {
 int x,y;
 SDL_Surface* source; SDL_Surface* destination;
-SDL_Surface *bg=IMG_Load( "back.png" );
+SDL_Surface *bg=IMG_Load( "backs.png" );
 SDL_Surface *screen;
  screen = SDL_SetVideoMode(500,400, 32, SDL_HWSURFACE);
     SDL_WM_SetCaption("zembra", NULL);
-apply_surface(x,y,source,destination )
+apply_surface(x,y,source,destination ) ;
 menu(bg,screen);
 }
